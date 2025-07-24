@@ -1,0 +1,59 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#16a34a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#22c55e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="400" height="300" fill="url(#bgGradient)"/>
+  
+  <!-- 装饰性住宅轮廓 -->
+  <g opacity="0.1" fill="white">
+    <polygon points="60,120 80,100 100,120 100,160 60,160"/>
+    <polygon points="320,110 340,90 360,110 360,150 320,150"/>
+    <polygon points="40,200 60,180 80,200 80,240 40,240"/>
+    <polygon points="300,190 320,170 340,190 340,230 300,230"/>
+  </g>
+  
+  <!-- 住宅项目图标 -->
+  <g transform="translate(200, 150)">
+    <!-- 主图标背景 -->
+    <circle cx="0" cy="0" r="50" fill="url(#iconGradient)" opacity="0.9"/>
+    
+    <!-- 住宅建筑图标 -->
+    <g stroke="white" stroke-width="2" fill="none">
+      <!-- 主体建筑 -->
+      <rect x="-25" y="-10" width="50" height="30"/>
+      <!-- 屋顶 -->
+      <polygon points="-30,-10 0,-25 30,-10" fill="white" opacity="0.8"/>
+      <!-- 窗户 -->
+      <rect x="-20" y="-5" width="8" height="8" fill="white" opacity="0.6"/>
+      <rect x="-5" y="-5" width="8" height="8" fill="white" opacity="0.6"/>
+      <rect x="10" y="-5" width="8" height="8" fill="white" opacity="0.6"/>
+      <!-- 门 -->
+      <rect x="-3" y="10" width="6" height="10" fill="white" opacity="0.6"/>
+      <!-- 花园/景观 -->
+      <circle cx="-35" cy="15" r="3" fill="white" opacity="0.4"/>
+      <circle cx="35" cy="15" r="3" fill="white" opacity="0.4"/>
+      <!-- 实战标记 -->
+      <path d="M -40 -35 L -30 -35 M -35 -40 L -30 -35 L -35 -30" stroke="white" stroke-width="2"/>
+      <text x="0" y="35" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8">实战</text>
+    </g>
+  </g>
+  
+  <!-- 标题文字 -->
+  <text x="200" y="250" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="22" font-weight="bold">
+    住宅项目设计实战
+  </text>
+  
+  <!-- 副标题 -->
+  <text x="200" y="275" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Arial, sans-serif" font-size="14">
+    Residential Project Practice
+  </text>
+</svg>

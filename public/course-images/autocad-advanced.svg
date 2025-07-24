@@ -1,0 +1,53 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="400" height="300" fill="url(#bgGradient)"/>
+  
+  <!-- 装饰性网格 -->
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="300" fill="url(#grid)"/>
+  
+  <!-- CAD图标 -->
+  <g transform="translate(200, 150)">
+    <!-- 主图标背景 -->
+    <circle cx="0" cy="0" r="50" fill="url(#iconGradient)" opacity="0.9"/>
+    
+    <!-- CAD工具图标 -->
+    <g stroke="white" stroke-width="2" fill="none">
+      <!-- 直线工具 -->
+      <line x1="-30" y1="-20" x2="30" y2="-20"/>
+      <!-- 圆形工具 -->
+      <circle cx="-15" cy="5" r="8"/>
+      <!-- 矩形工具 -->
+      <rect x="5" y="-3" width="16" height="16"/>
+      <!-- 尺寸标注 -->
+      <line x1="-25" y1="25" x2="25" y2="25"/>
+      <line x1="-25" y1="20" x2="-25" y2="30"/>
+      <line x1="25" y1="20" x2="25" y2="30"/>
+    </g>
+  </g>
+  
+  <!-- 标题文字 -->
+  <text x="200" y="250" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">
+    AutoCAD高级建模
+  </text>
+  
+  <!-- 副标题 -->
+  <text x="200" y="275" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Arial, sans-serif" font-size="14">
+    Advanced Modeling Techniques
+  </text>
+</svg>

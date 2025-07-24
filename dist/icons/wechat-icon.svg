@@ -1,0 +1,20 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 微信绿色背景 -->
+  <rect width="32" height="32" rx="6" fill="#07C160"/>
+  
+  <!-- 微信图标 -->
+  <g transform="translate(4, 6)">
+    <!-- 大气泡 -->
+    <ellipse cx="9" cy="8" rx="7" ry="5.5" fill="white"/>
+    <!-- 小气泡 -->
+    <ellipse cx="17" cy="12" rx="5" ry="4" fill="white"/>
+    
+    <!-- 大气泡上的眼睛 -->
+    <circle cx="6.5" cy="7" r="1" fill="#07C160"/>
+    <circle cx="11.5" cy="7" r="1" fill="#07C160"/>
+    
+    <!-- 小气泡上的眼睛 -->
+    <circle cx="15" cy="11" r="0.8" fill="#07C160"/>
+    <circle cx="19" cy="11" r="0.8" fill="#07C160"/>
+  </g>
+</svg>
