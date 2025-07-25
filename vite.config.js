@@ -6,7 +6,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver, VantResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig({
-  base: '/AI_Web_vue/',
+  base: process.env.NODE_ENV === 'production' ? '/AI_Web_vue/' : '/',
   plugins: [
     vue(),
     AutoImport({

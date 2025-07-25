@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue应用诊断页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .debug-section {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .debug-title {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        .status-ok {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .status-error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 3px;
+            padding: 10px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin: 10px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Vue应用诊断工具</h1>
+    
+    <div class="debug-section">
+        <h2 class="debug-title">1. DOM结构检查</h2>
+        <button onclick="checkDOMStructure()">检查DOM结构</button>
+        <div id="dom-result"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2 class="debug-title">2. Vue挂载状态检查</h2>
+        <button onclick="checkVueMount()">检查Vue挂载</button>
+        <div id="vue-result"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2 class="debug-title">3. 样式加载检查</h2>
+        <button onclick="checkStyles()">检查样式</button>
+        <div id="style-result"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2 class="debug-title">4. 控制台错误检查</h2>
+        <button onclick="checkConsoleErrors()">检查控制台错误</button>
+        <div id="console-result"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2 class="debug-title">5. 网络请求检查</h2>
+        <button onclick="checkNetworkRequests()">检查网络请求</button>
+        <div id="network-result"></div>
+    </div>
+
+    <script>
+        // 存储控制台错误
+        window.consoleErrors = [];
+        const originalConsoleError = console.error;
+        console.error = function(...args) {
+            window.consoleErrors.push(args.join(' '));
+            originalConsoleError.apply(console, args);
+        };
+
+        function checkDOMStructure() {
+            const result = document.getElementById('dom-result');
+            let html = '<h3>DOM结构分析:</h3>';
+            
+            // 检查基本元素
+            const htmlElement = document.documentElement;
+            const bodyElement = document.body;
+            const appElement = document.getElementById('app');
+            
+            html += `<div class="code-block">`;
+            html += `HTML元素高度: ${htmlElement.offsetHeight}px\n`;
+            html += `BODY元素高度: ${bodyElement.offsetHeight}px\n`;
+            html += `BODY计算样式高度: ${getComputedStyle(bodyElement).height}\n`;
+            
+            if (appElement) {
+                html += `#app元素存在: <span class="status-ok">✓</span>\n`;
+                html += `#app元素高度: ${appElement.offsetHeight}px\n`;
+                html += `#app子元素数量: ${appElement.children.length}\n`;
+                html += `#app内容: ${appElement.innerHTML.length > 0 ? '有内容' : '无内容'}\n`;
+            } else {
+                html += `#app元素存在: <span class="status-error">✗</span>\n`;
+            }
+            
+            html += `</div>`;
+            result.innerHTML = html;
+        }
+
+        function checkVueMount() {
+            const result = document.getElementById('vue-result');
+            let html = '<h3>Vue挂载状态:</h3>';
+            
+            html += `<div class="code-block">`;
+            
+            // 检查Vue是否存在
+            if (typeof Vue !== 'undefined') {
+                html += `Vue全局对象: <span class="status-ok">存在</span>\n`;
+            } else {
+                html += `Vue全局对象: <span class="status-error">不存在</span>\n`;
+            }
+            
+            // 检查app元素的Vue实例
+            const appElement = document.getElementById('app');
+            if (appElement) {
+                const vueInstance = appElement.__vue__ || appElement._vnode;
+                if (vueInstance) {
+                    html += `Vue实例挂载: <span class="status-ok">成功</span>\n`;
+                } else {
+                    html += `Vue实例挂载: <span class="status-error">失败</span>\n`;
+                }
+                
+                // 检查是否有Vue相关的data属性
+                const dataVApp = appElement.getAttribute('data-v-app');
+                if (dataVApp !== null) {
+                    html += `Vue data属性: <span class="status-ok">存在</span>\n`;
+                } else {
+                    html += `Vue data属性: <span class="status-error">不存在</span>\n`;
+                }
+            }
+            
+            html += `</div>`;
+            result.innerHTML = html;
+        }
+
+        function checkStyles() {
+            const result = document.getElementById('style-result');
+            let html = '<h3>样式加载状态:</h3>';
+            
+            html += `<div class="code-block">`;
+            
+            // 检查样式表数量
+            const stylesheets = document.styleSheets;
+            html += `加载的样式表数量: ${stylesheets.length}\n`;
+            
+            // 检查具体的样式表
+            for (let i = 0; i < stylesheets.length; i++) {
+                const sheet = stylesheets[i];
+                const href = sheet.href || '内联样式';
+                html += `样式表 ${i + 1}: ${href}\n`;
+            }
+            
+            // 检查body的计算样式
+            const bodyStyles = getComputedStyle(document.body);
+            html += `\nBODY计算样式:\n`;
+            html += `- height: ${bodyStyles.height}\n`;
+            html += `- min-height: ${bodyStyles.minHeight}\n`;
+            html += `- margin: ${bodyStyles.margin}\n`;
+            html += `- padding: ${bodyStyles.padding}\n`;
+            html += `- display: ${bodyStyles.display}\n`;
+            
+            html += `</div>`;
+            result.innerHTML = html;
+        }
+
+        function checkConsoleErrors() {
+            const result = document.getElementById('console-result');
+            let html = '<h3>控制台错误:</h3>';
+            
+            html += `<div class="code-block">`;
+            
+            if (window.consoleErrors.length === 0) {
+                html += `<span class="status-ok">没有发现控制台错误</span>\n`;
+            } else {
+                html += `<span class="status-error">发现 ${window.consoleErrors.length} 个错误:</span>\n\n`;
+                window.consoleErrors.forEach((error, index) => {
+                    html += `${index + 1}. ${error}\n`;
+                });
+            }
+            
+            html += `</div>`;
+            result.innerHTML = html;
+        }
+
+        function checkNetworkRequests() {
+            const result = document.getElementById('network-result');
+            let html = '<h3>网络请求检查:</h3>';
+            
+            html += `<div class="code-block">`;
+            html += `请打开浏览器开发者工具的Network标签页查看:\n`;
+            html += `1. 检查是否有404错误的资源\n`;
+            html += `2. 检查JavaScript文件是否正确加载\n`;
+            html += `3. 检查CSS文件是否正确加载\n`;
+            html += `4. 查看是否有CORS错误\n\n`;
+            
+            // 检查当前页面的资源
+            const scripts = document.querySelectorAll('script[src]');
+            const links = document.querySelectorAll('link[rel="stylesheet"]');
+            
+            html += `页面中的脚本文件 (${scripts.length}个):\n`;
+            scripts.forEach((script, index) => {
+                html += `${index + 1}. ${script.src}\n`;
+            });
+            
+            html += `\n页面中的样式文件 (${links.length}个):\n`;
+            links.forEach((link, index) => {
+                html += `${index + 1}. ${link.href}\n`;
+            });
+            
+            html += `</div>`;
+            result.innerHTML = html;
+        }
+
+        // 页面加载完成后自动运行基本检查
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                checkDOMStructure();
+                checkVueMount();
+                checkStyles();
+                checkConsoleErrors();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

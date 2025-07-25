@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue应用测试页面</title>
+    <style>
+        html, body {
+            height: 100%;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-height: 300px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Vue应用基础测试</h1>
+        
+        <div class="status info">
+            <strong>测试目的:</strong> 验证基础HTML/CSS是否正常工作
+        </div>
+        
+        <div class="status success">
+            <strong>✅ HTML结构:</strong> 正常显示
+        </div>
+        
+        <div class="status success">
+            <strong>✅ CSS样式:</strong> 正常加载
+        </div>
+        
+        <div class="status success">
+            <strong>✅ 页面高度:</strong> body高度应该大于0
+        </div>
+        
+        <div id="height-info" class="status info">
+            <strong>📏 当前页面尺寸:</strong>
+            <br>HTML高度: <span id="html-height"></span>px
+            <br>BODY高度: <span id="body-height"></span>px
+            <br>视窗高度: <span id="viewport-height"></span>px
+        </div>
+        
+        <h2>🔍 诊断步骤</h2>
+        <ol>
+            <li><strong>检查本地开发环境:</strong>
+                <ul>
+                    <li>访问 <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+                    <li>按F12打开开发者工具</li>
+                    <li>查看Console标签是否有错误</li>
+                    <li>查看Elements标签中body的高度</li>
+                </ul>
+            </li>
+            
+            <li><strong>检查GitHub Pages部署:</strong>
+                <ul>
+                    <li>访问 <a href="https://isaac-cha.github.io/AI_Web_vue/" target="_blank">https://isaac-cha.github.io/AI_Web_vue/</a></li>
+                    <li>按F12打开开发者工具</li>
+                    <li>查看Network标签是否有404错误</li>
+                    <li>查看Console标签是否有JavaScript错误</li>
+                </ul>
+            </li>
+            
+            <li><strong>使用诊断工具:</strong>
+                <ul>
+                    <li>访问 <a href="./debug.html" target="_blank">诊断页面</a></li>
+                    <li>点击各个检查按钮</li>
+                    <li>查看详细的诊断结果</li>
+                </ul>
+            </li>
+        </ol>
+        
+        <h2>🛠️ 常见问题解决方案</h2>
+        <div class="status error">
+            <strong>问题1: body高度为0</strong>
+            <br>原因: CSS样式没有正确加载或Vue组件没有渲染内容
+            <br>解决: 检查样式文件导入和Vue组件挂载
+        </div>
+        
+        <div class="status error">
+            <strong>问题2: 页面空白</strong>
+            <br>原因: JavaScript错误导致Vue应用无法启动
+            <br>解决: 检查控制台错误信息
+        </div>
+        
+        <div class="status error">
+            <strong>问题3: 资源404错误</strong>
+            <br>原因: 构建路径配置错误
+            <br>解决: 检查vite.config.js中的base配置
+        </div>
+    </div>
+    
+    <script>
+        // 显示页面尺寸信息
+        function updateSizeInfo() {
+            document.getElementById('html-height').textContent = document.documentElement.offsetHeight;
+            document.getElementById('body-height').textContent = document.body.offsetHeight;
+            document.getElementById('viewport-height').textContent = window.innerHeight;
+        }
+        
+        // 页面加载完成后更新信息
+        window.addEventListener('load', updateSizeInfo);
+        window.addEventListener('resize', updateSizeInfo);
+        
+        // 立即更新一次
+        updateSizeInfo();
+    </script>
+</body>
+</html>
