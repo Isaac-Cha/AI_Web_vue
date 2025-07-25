@@ -6,6 +6,9 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import { inject } from '@vercel/analytics'
 
+// 导入全局样式
+import './styles/index.scss'
+
 import App from './App.vue'
 import router from './router'
 import { useDeviceStore } from './stores/device'
